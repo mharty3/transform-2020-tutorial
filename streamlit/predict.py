@@ -39,12 +39,18 @@ def predict_from_image(clf, img):
     return result
 
 if __name__ == '__main__':    
+    import streamlit as st
+
     CLF = joblib.load('app-master/rf.gz')
-    
-    url = 'https://images.fineartamerica.com/images-medium-large-5/23-trilobite-fossil-sinclair-stammersscience-photo-library.jpg'
-    img = fetch_image(url)
-    result = predict_from_image(CLF, img)
-    
-    print(url)
-    pprint(result)
+    st.title("Fossil Net")
+    url = st.text_input('Upload an Image URL')# 'https://images.fineartamerica.com/images-medium-large-5/23-trilobite-fossil-sinclair-stammersscience-photo-library.jpg'
+    if url:
+        img = fetch_image(url)
+        result = predict_from_image(CLF, img)
+        st.markdown(f'# {result["class"]}')
+        st.markdown(f'p = {result["prob"].round(2)}')
+        st.image(img)
+
+        st.write(result)
+
     
