@@ -47,6 +47,7 @@ if __name__ == '__main__':
     if url:
         img = fetch_image(url)
         result = predict_from_image(CLF, img)
+        st.balloons()
         st.markdown(f'# {result["class"]}')
         st.markdown(f'p = {result["prob"].round(2)}')
         st.image(img)
